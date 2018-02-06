@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vue.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}"/>
+    <title>Title</title>
+    <style type="text/css">
+    .my_class{
+        color: red;
+    }
+    </style>
+</head>
+{% endblock %}
+{% block body %}
+<body>
+    <div id="app">
+        {% verbatim %}
+        {{ abc }}
+        {% endverbatim %}
+        <div @click="dfunc(abc)">治</div>
+    </div>
+
+{% block script %}
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                abc:1
+            },
+            methods: {
+                dfunc: function (v) {
+                    console.log(v)
+                    this.abc += 1
+                    console.log(this.abc)
+                    if(v==1){
+                        console.log(09)
+                        app.abc = 123
+                    }
+                    if(v==123){
+                        app.abc = 1
+                    }
+{#                    app.abc = 333#}
+                }
+            }
+        })
+    </script>
+    <script>
+        function func() {
+            var jq = $("#abc");
+            jq.text('acv');
+            jq.addClass('my_class');
+        }
+
+    </script>
+{% endblock %}
+</body>
+{% endblock %}
+</html>

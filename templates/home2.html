@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vue.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}"/>
+    <title>Title</title>
+    <style type="text/css">
+    .my_class{
+        color: red;
+    }
+    </style>
+</head>
+    <style type="text/css">
+    .header{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        background-color: #fff;
+        height: 3em;
+        border-bottom: 1px solid #ccc;}
+    </style>
+{% endblock %}
+{% block body %}
+<body>
+    <div class="header"></div>
+    请输入关键字
+
+
+    <div id="app">
+        {% verbatim %}
+        <div v-for="d in loop">
+        {{ d }}<span @click="dfunc(d)">but</span>
+        </div>
+        {% endverbatim %}
+    </div>
+
+{% block script %}
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                loop:[1, 2, 3]
+            },
+            methods: {
+                dfunc: function (v) {
+{#                    app.loop[2] = 44#}
+                    Vue.set(app.loop, 2, 44)
+                    console.log(app.loop)
+                    }
+                },
+            mounted:function () {
+                app.dfunc()
+            }
+
+        })
+    </script>
+    <script>
+        function func() {
+            var jq = $("#abc");
+            jq.text('acv');
+            jq.addClass('my_class');
+        }
+
+    </script>
+{% endblock %}
+</body>
+{% endblock %}
+</html>
